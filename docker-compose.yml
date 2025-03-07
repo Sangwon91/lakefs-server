@@ -17,7 +17,7 @@ services:
       - LAKEFS_INSTALLATION_ACCESS_KEY_ID=AKIAIOSFODNN7EXAMPLE
       - LAKEFS_INSTALLATION_SECRET_ACCESS_KEY=wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY
     volumes:
-      - /nas/service/lakefs-storage:/nas_data  # 여기에 실제 NAS 경로를 지정하세요
+      - /nas/shared/lakefs-storage:/nas_data  # 여기에 실제 NAS 경로를 지정하세요
     entrypoint: ["/bin/sh", "-c"]
     command:
         - |
