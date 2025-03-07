@@ -1,0 +1,37 @@
+version: "3.5"
+name: lakefs-nas
+services:
+  lakefs:
+    image: treeverse/lakefs:latest
+    pull_policy: always
+    ports:
+      - "48000:8000"
+    environment:
+      - LAKEFS_DATABASE_TYPE=local
+      - LAKEFS_BLOCKSTORE_TYPE=local
+      - LAKEFS_BLOCKSTORE_LOCAL_PATH=/nas_data
+      - LAKEFS_AUTH_ENCRYPT_SECRET_KEY=some-random-secret-string
+      - LAKEFS_LOGGING_LEVEL=INFO
+      - LAKEFS_STATS_ENABLED=0
+      - LAKEFS_INSTALLATION_USER_NAME=admin
+      - LAKEFS_INSTALLATION_ACCESS_KEY_ID=AKIAIOSFODNN7EXAMPLE
+      - LAKEFS_INSTALLATION_SECRET_ACCESS_KEY=wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY
+    volumes:
+      - /nas/service/lakefs-storage:/nas_data  # 여기에 실제 NAS 경로를 지정하세요
+    entrypoint: ["/bin/sh", "-c"]
+    command:
+        - |
+          lakefs run --local-settings &
+          echo ""
+          echo "lakeFS Web UI: http://127.0.0.1:8000/"
+          echo ""
+          echo "                Access Key ID    : $$LAKEFS_INSTALLATION_ACCESS_KEY_ID"
+          echo "                Secret Access Key: $$LAKEFS_INSTALLATION_SECRET_ACCESS_KEY"
+          echo ""
+          echo "-------- lakeFS 서버가 시작되었습니다 --------"
+          echo ""
+          wait
+
+networks:
+  default:
+    name: lakefs-network
