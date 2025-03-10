@@ -1,0 +1,21 @@
+# 환경 변수 파일
+.env
+
+# 로그 파일
+*.log
+
+# 로컬 데이터 디렉토리
+data/
+
+# Docker 볼륨 데이터
+volumes/
+
+# 시스템 파일
+.DS_Store
+Thumbs.db
+
+# IDE 설정 파일
+.idea/
+.vscode/
+*.swp
+*.swo 
